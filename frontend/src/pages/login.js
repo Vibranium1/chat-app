@@ -37,9 +37,12 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      console.log(data);
-      const { success, message } = data;
+      // console.log(data);
+      const { success, message, token,user  } = data;
       if (success) {
+        localStorage.setItem("token",token);
+        // console.log(user, "login comp")
+        localStorage.setItem("userdetails",JSON.stringify(user));
         handleSuccess(message);
         setTimeout(() => {
           navigate("/home");

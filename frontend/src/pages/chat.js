@@ -12,7 +12,7 @@ const Chat = ({userDetails}) => {
     useEffect(() => {
         axios.get('http://localhost:5000/chats').then((res) => setMessages(res.data));
         const handleReceiveMessage = (data) => {
-            console.log("how many times", data);
+            // console.log("how many times", data);
             setMessages((prev) => [...prev, data]);
         };
     
@@ -25,7 +25,7 @@ const Chat = ({userDetails}) => {
 
     const sendMessage = () => {
         if (!message) return;
-        console.log("sendmessage function")
+        // console.log("sendmessage function")
         const newMessage = { sender: userDetails.username, content: message, imgurl:userDetails.imgurl };
         socket.emit('sendMessage', newMessage);
         setMessage('');

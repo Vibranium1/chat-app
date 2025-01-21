@@ -12,13 +12,10 @@ module.exports.Signup = async (req, res, next) => {
     }
     const user = await User.create({ email, password, username, createdAt, imgurl });
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
-      
-    });
+    // res.cookie("token", token, {
+    //   withCredentials: true,
+    //   httpOnly: false,
+    // });
     res
       .status(201)
       .json({ message: "User signed in successfully", success: true, user });
@@ -36,7 +33,7 @@ module.exports.Login = async (req, res, next) => {
         return res.json({message:'All fields are required'})
       }
       const user = await User.findOne({ email });
-      console.log(user,"from backend1")
+      // console.log(user,"from backend1")
       if(!user){
         return res.json({message:'Incorrect password or email' }) 
       }
@@ -44,17 +41,16 @@ module.exports.Login = async (req, res, next) => {
       if (!auth) {
         return res.json({message:'Incorrect password or email' }) 
       }
-      console.log(user,"from backend")
+      // console.log(user,"from backend")
        const token = createSecretToken(user._id);
-       console.log("Setting cookie:", token);
-       res.cookie("token", token, {
-         withCredentials: true,
-         httpOnly: false,
-         secure: false,
-        //  sameSite: "none",
-       });
-       console.log("Set-Cookie Header Sent:", res.getHeader("Set-Cookie"));
-       res.status(201).json({ message: "User logged in successfully", success: true });
+      //  console.log("Setting cookie:", token);
+      //  res.cookie("token", token, {
+      //    withCredentials: true,
+      //    httpOnly: false,
+      //   //  sameSite: "none",
+      //  });
+      //  console.log("Set-Cookie Header Sent:", res.getHeader("Set-Cookie"));
+       res.status(201).json({ message: "User logged in successfully", success: true, token, user });
        next()
     } catch (error) {
       console.error(error);

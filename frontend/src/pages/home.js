@@ -8,46 +8,75 @@ import Chat from "./chat";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [cookies,removeCookie] = useCookies(["token"]);
-  const [username, setUsername] = useState("");
-  const [userDetails, setUserDetails] = useState({username:"",email:"",imgurl:""});
+  // const [cookies,removeCookie] = useCookies([]);
+  // const [userDetails, setUserDetails] = useState({username:"",email:"",imgurl:""});
   const toastShown = useRef(false);
-  useEffect(() => {
-    const verifyCookie = async () => {
-      console.log("Cookies:", cookies);
-      // if (!cookies.token) {
-      //   console.log("No token found, navigating to login.");
-      //   navigate("/login");
-      // }
-      try{
-        const { data } = await axios.post(
-          "http://localhost:5000",
-          {},
-          { withCredentials: true }
-        );
-        const { status, usern,email, imgurl } = data;
+  var tokent =localStorage.getItem("token");
+  // console.log(tokent,"frontend home component")
+  const user =localStorage.getItem("userdetails");
+  var userDetails;
+  // console.log(userDetails,"home")
+  if (user) {
+    userDetails = JSON.parse(user);
+    // console.log(userDetails.username,"username home"); // Output: Rahul Rana
+  }
 
-        setUserDetails({username:usern,email:email,imgurl:imgurl})
-        setUsername(usern);
 
-        if (!status) {
-          removeCookie("token", { path: "/" });
-          navigate("/login");
-        }
-      }
-      catch (error) {
-        console.error("Verification Error:", error);
-        removeCookie("token");
-        navigate("/login");
-      }
+    // const userDetails = JSON.parse(user); // Parse the string back into an object
+    // console.log(userDetails.username); // Access the username
+
+  // useEffect(() => {
+  //   const verifyCookie = async () => {
+  //     // console.log("Cookies:", cookies);
+  //     // if (!cookies.token) {
+  //     //   console.log("No token found, navigating to login.");
+  //     //   navigate("/");
+  //     // }
       
-    };
-    verifyCookie();
-  }, [cookies, removeCookie, navigate]);
-  const Logout = () => {
-    removeCookie("token",{ httpOnly: false });
+  //           if (!tokent) {
+  //       console.log("No token found, navigating to login.");
+  //       navigate("/");
+  //     }
+  //     // try{
+  //     //   const { data } = await axios.post(
+  //     //     "http://localhost:5000",
+  //     //     {},
+  //     //     { withCredentials: true }
+  //     //   );
+  //     //   const { status, usern,email, imgurl } = data;
 
-    navigate("/"); window.location.reload();
+  //     //   setUserDetails({username:usern,email:email,imgurl:imgurl})
+  //     //   // setUsername(usern);
+
+  //     //   return status
+  //     //   ? toast(`Hello ${usern}`, {
+  //     //       position: "top-right",
+  //     //     })
+  //     //   : (localStorage.removeItem("token")
+  //     //     // removeCookie("token")
+  //     //   , navigate("/")
+  //     //   );
+  //     // }
+  //     // catch (error) {
+  //     //   console.error("Verification Error:", error);
+  //     //   // console.log("before logout the cookie", cookies)
+  //     //   // removeCookie("token",  { path: "/" });
+  //     //   // console.log("after logout the cookie", cookies)
+        
+  //     //   navigate("/login");
+  //     // }
+      
+  //   };
+  //   verifyCookie();
+  // }, [
+  //   // cookies, removeCookie,
+  //    navigate]);
+  const Logout = () => {
+    // removeCookie("token");
+    localStorage.removeItem("token")
+    localStorage.removeItem("userdetails")
+    navigate("/"); 
+    // window.location.reload();
     
   };
   
@@ -59,7 +88,7 @@ const Home = () => {
         <div className="p-2 d-flex  mb-4">
         <h4 className="me-auto p-2 text-info"> 
           {" "}
-          Welcome <span>{username}</span> !! 
+          Welcome <span>{userDetails.username}</span> !! 
         </h4>
                <img
                       className="rounded-circle p-2 "
