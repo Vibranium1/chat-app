@@ -5,7 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import Chat from "./chat";
 import io from "socket.io-client"
-const socket= io("http://localhost:5000")
+const socket= io("https://chat-app-uk89.onrender.com")
 
 
 const Home = () => {

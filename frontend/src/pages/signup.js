@@ -33,7 +33,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/signup`,
+        `https://chat-app-uk89.onrender.com/signup`,
         {
           ...inputValue,
         },

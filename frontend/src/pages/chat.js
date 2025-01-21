@@ -3,14 +3,14 @@ import { io } from 'socket.io-client';
 import axios from 'axios';
 import "./chat.css"
 
-const socket = io(`http://localhost:5000`);
+const socket = io(`https://chat-app-uk89.onrender.com`);
 
 const Chat = ({userDetails}) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     // console.log(userDetails,"userdeatils in chat c")
     useEffect(() => {
-        axios.get(`http://localhost:5000/chats`).then((res) => setMessages(res.data));
+        axios.get(`https://chat-app-uk89.onrender.com/chats`).then((res) => setMessages(res.data));
         const handleReceiveMessage = (data) => {
             // console.log("how many times", data);
             setMessages((prev) => [...prev, data]);
