@@ -6,8 +6,8 @@ const { Server } = require('socket.io');
 const app = express();
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
-const authRoute = require("./routes/AuthRoutes");
-const Message = require("./models/MessageModel")
+const authRoute = require("../routes/AuthRoutes");
+const Message = require("../models/MessageModel")
 const { MONGO_URL, PORT } = process.env;
 
 app.use(
@@ -73,6 +73,10 @@ io.on('connection', (socket) => {
 });
 
 
-server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
+// server.listen(PORT, () => {
+//   console.log(`Server is listening on port ${PORT}`);
+// });
+
+module.exports = (req, res) => {
+  server(req, res); // Delegate to the Express app
+};
