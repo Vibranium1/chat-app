@@ -12,10 +12,10 @@ module.exports.Signup = async (req, res, next) => {
     }
     const user = await User.create({ email, password, username, createdAt, imgurl });
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
-    });
+    // res.cookie("token", token, {
+    //   withCredentials: true,
+    //   httpOnly: false,
+    // });
     res
       .status(201)
       .json({ message: "User signed in successfully", success: true, user });
@@ -44,11 +44,11 @@ module.exports.Login = async (req, res, next) => {
       // console.log(user,"from backend")
        const token = createSecretToken(user._id);
       //  console.log("Setting cookie:", token);
-       res.cookie("token", token, {
-         withCredentials: true,
-         httpOnly: false,
-        //  sameSite: "none",
-       });
+      //  res.cookie("token", token, {
+      //    withCredentials: true,
+      //    httpOnly: false,
+      //   //  sameSite: "none",
+      //  });
       //  console.log("Set-Cookie Header Sent:", res.getHeader("Set-Cookie"));
        res.status(201).json({ message: "User logged in successfully", success: true, token, user });
        next()
@@ -66,8 +66,6 @@ module.exports.Login = async (req, res, next) => {
       res.status(500).send('Error fetching chat history');
   }
   };
-
-  
 
 
   
