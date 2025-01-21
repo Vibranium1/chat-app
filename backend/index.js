@@ -90,8 +90,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { Server } = require("socket.io");
 const http = require("http");
-const authRoute = require("../routes/AuthRoutes");
-const Message = require("../models/MessageModel")
+const authRoute = require("./routes/AuthRoutes");
+const Message = require("./models/MessageModel");
+const path = require("path");
 const { MONGO_URL, PORT } = process.env;
 
 const app = express();
@@ -104,6 +105,11 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use("/", authRoute);
+
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).send("Something went wrong!");
+});
 
 const server = http.createServer(app);
 
@@ -139,12 +145,32 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use((err, req, res, next) => {
-  console.error("Unhandled error:", err);
-  res.status(500).send("Something went wrong!");
-});
-
 // Vercel expects the server to be exported like this:
-module.exports = (req, res) => {
-  server(req, res);  // handles request and response
-};
+// module.exports = (req, res) => {
+//   server(req, res);  // handles request and response
+// };
+
+
+// --------------------------deployment------------------------------
+
+const __dirname1 = path.resolve();
+console.log(__dirname1)
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "..", "frontend", "build"); 
+  app.use(express.static(frontendPath));
+  console.log(__dirname1)
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(frontendPath, "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
+}
+
+// --------------------------deployment------------------------------
+
+server.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+ });

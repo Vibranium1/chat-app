@@ -31,7 +31,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/login",
+        `${process.env.REACT_APP_BACKEND_URL}/login`,
         {
           ...inputValue,
         },
