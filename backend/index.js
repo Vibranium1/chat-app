@@ -93,7 +93,12 @@ const http = require("http");
 const authRoute = require("./routes/AuthRoutes");
 const Message = require("./models/MessageModel");
 const path = require("path");
+require("dotenv").config({ path: "./.env" });
 const { MONGO_URL, PORT } = process.env;
+if (!MONGO_URL || !PORT) {
+  console.error("Missing required environment variables!");
+  process.exit(1);
+}
 
 const app = express();
 
