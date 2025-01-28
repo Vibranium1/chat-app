@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 import "./chat.css"
-
+// for running it locally make it localhost:5000 for backend
 const socket = io(`https://chat-app-uk89.onrender.com`);
 
 const Chat = ({userDetails}) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    // console.log(userDetails,"userdeatils in chat c")
-    useEffect(() => {
+    
+    useEffect(() => { // for running it locally make it localhost:5000 for backend
         axios.get(`https://chat-app-uk89.onrender.com/chats`).then((res) => setMessages(res.data));
         const handleReceiveMessage = (data) => {
-            // console.log("how many times", data);
             setMessages((prev) => [...prev, data]);
         };
     
@@ -25,7 +24,6 @@ const Chat = ({userDetails}) => {
 
     const sendMessage = () => {
         if (!message) return;
-        // console.log("sendmessage function")
         const newMessage = { sender: userDetails.username, content: message, imgurl:userDetails.imgurl };
         socket.emit('sendMessage', newMessage);
         setMessage('');
@@ -38,8 +36,8 @@ const Chat = ({userDetails}) => {
 
 
     return (
-        <div className='no-gradient' style={{marginBottom:"100px"}}>
-            <div className=" chat-container" style={{backgroundColor:"#ffffff", width:"700px", marginLeft:"240px", borderRadius:"20px"}}>
+        <div className='no-gradient d-flex align-items-center justify-content-center' style={{marginBottom:"100px"}}>
+            <div className=" chat-container" style={{backgroundColor:"#ffffff", borderRadius:"20px"}}>
             <h2 className="chat-header">Chat Room</h2>
             <div className="chat-area">
                 <div className="chat-messages">

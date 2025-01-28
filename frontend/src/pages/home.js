@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Chat from "./chat";
 import io from "socket.io-client"
 const socket= io("https://chat-app-uk89.onrender.com")
+// for running it locally make it http://localhost:5000 for backend
 
 
 const Home = () => {
@@ -88,9 +89,9 @@ const Home = () => {
    
   return (
     <>
-      <div className="container">
-        <div className="p-2 d-flex  mb-4">
-        <h4 className="me-auto p-2 text-info"> 
+      <div className="container d-flex flex-column"  style={{ minHeight: "100vh", overflow: "hidden", padding: "20px"  }}>
+        <div className="p-2 align-items-center d-flex mb-3">
+        <h4 className="me-auto text-info"> 
           {" "}
           Welcome <span>{userDetails.username}</span> !! 
         </h4>
@@ -106,7 +107,9 @@ const Home = () => {
                     />
         <button onClick={Logout} className="border-0 p-2 bg-danger rounded-3 text-white mx-3"style={{marginTop:"10px", height:"50px"}}>Logout</button>
         </div>
+
         <Chat userDetails={userDetails}/>
+   
       </div>
       <ToastContainer />
     </>

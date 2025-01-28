@@ -4,6 +4,8 @@
     align-items: center;
     padding: 20px;
     font-family: Arial, sans-serif;
+    width: 100%;
+    max-width: 700px;
 }
 
 .chat-header {
@@ -26,7 +28,7 @@
 }
 
 .chat-messages {
-    height: 500px; /* Fixed height for messages area */
+    height: 400px; /* Fixed height for messages area */
     overflow-y: auto; /* Enable vertical scrolling */
     padding: 10px;
     border-bottom: 1px solid #ddd;
@@ -83,4 +85,34 @@
 
 .chat-send-button:hover {
     background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    .chat-container {
+        max-width: 90%; /* Take up 90% of the screen width */
+    }
+
+    .chat-area {
+        height: 600px; /* Reduce height on smaller screens */
+    }
+
+    .chat-messages {
+        height: 550px; /* Adjust height for chat messages */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .chat-container {
+        max-width: 100%; /* Full width for very small devices */
+        padding: 10px; /* Reduce padding */
+    }
+
+    .chat-area {
+        height: 500px;
+    }
+
+    .chat-messages {
+        height: 450px;
+    }
 }

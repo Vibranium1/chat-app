@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `https://chat-app-uk89.onrender.com/login`,
+        `https://chat-app-uk89.onrender.com/login`, // for running it locally make it http://localhost:5000 for backend
         {
           ...inputValue,
         },
@@ -62,9 +62,9 @@ const Login = () => {
   };
 
   return (
-    <div className="no-gradient" style={{}}>
+    <div className="no-gradient d-flex justify-content-center align-items-center vh-100" style={{}}>
 
-<div className="container border p-4 " style={{marginLeft:"500px", marginTop:"150px", width:"450px",  backgroundColor: "#ffffff", borderRadius:"20px"}}>
+<div className="container border p-4 " style={{alignContent:"center",width:"450px",  backgroundColor: "#ffffff", borderRadius:"20px"}}>
        <ToastContainer />
       <h2 className="text-center">Login Account</h2>
       <form onSubmit={handleSubmit}>

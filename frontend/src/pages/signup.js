@@ -61,8 +61,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="no-gradient">
-     <div className="container p-4 border" style={{marginLeft:"500px", marginTop:"100px", width:"450px", backgroundColor:"#ffffff", borderRadius:"20px"}}>
+    <div className="no-gradient d-flex align-items-center justify-content-center vh-100">
+     <div className="container p-4 border" style={{ width:"450px", backgroundColor:"#ffffff", borderRadius:"20px"}}>
         <div className="" >
         <h2 className="text-center" >Signup Account</h2>
       <form onSubmit={handleSubmit}>
